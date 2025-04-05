@@ -10,9 +10,27 @@ public class HomeController : Controller
 
     private readonly List<Service> _services = new()
     {
-        new Service { Id = Guid.NewGuid(), Name = "Service 01", Cost = 100.50, Description = "Descr - 001" },
-        new Service { Id = Guid.NewGuid(), Name = "Service 02", Cost = 200.45, Description = "Descr - 002" },
-        new Service { Id = Guid.NewGuid(), Name = "Service 03", Cost = 300.55, Description = "Descr - 003" },
+        new Service
+        {
+            Id = new Guid("ecd4480b-235c-4a91-9b88-64787c3748bf"), 
+            Name = "Service 01", 
+            Cost = 100.50, 
+            Description = "Descr - 001"
+        },
+        new Service
+        {
+            Id = new Guid("8703089e-0e0b-4c58-9c33-30419aa7b56e"), 
+            Name = "Service 02", 
+            Cost = 200.45, 
+            Description = "Descr - 002"
+        },
+        new Service
+        {
+            Id = new Guid("05acd97a-1fe2-4168-bd15-43daa8a620b6"), 
+            Name = "Service 03", 
+            Cost = 300.55, 
+            Description = "Descr - 003"
+        },
     };
 
     public HomeController(ILogger<HomeController> logger)
@@ -20,14 +38,22 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public string Index()
+    public string Index(Guid? id)
     {
         var result = "";
 
-        foreach (var service in _services)
+        if (id == null)
         {
-            result += service;
-            result += "\r\n\r\n";
+            foreach (var service in _services)
+            {
+                result += service;
+                result += "\r\n\r\n";
+            }
+        }
+        else
+        {
+            var item = _services.FirstOrDefault(el => el.Id == id);
+            result += item == null ? "Элемент не найден" : item + $"\r\n{item.Description}";
         }
         
         return result;
