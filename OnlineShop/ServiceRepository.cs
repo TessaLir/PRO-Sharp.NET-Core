@@ -27,6 +27,20 @@ public class ServiceRepository
             Cost = 300.55, 
             Description = "Descr - 003"
         },
+        new Service
+        {
+            Id = Guid.NewGuid(), 
+            Name = "Service 04", 
+            Cost = 400.55, 
+            Description = "Descr - 004"
+        },
+        new Service
+        {
+            Id = Guid.NewGuid(), 
+            Name = "Service 05", 
+            Cost = 500.55, 
+            Description = "Descr - 005"
+        },
     };
 
     public List<Service> GetList()
