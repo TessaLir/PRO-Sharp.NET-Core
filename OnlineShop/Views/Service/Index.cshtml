@@ -1,0 +1,29 @@
+﻿@model Service?
+@{
+    ViewData["Title"] = "Service Detail Page";
+}
+
+@if (Model == null)
+{
+    <h3>Элемент не найден</h3>
+}
+else
+{
+    <div class="row">
+        
+        <div class="col-4">
+            <img class="w-75" src="~/images/information.png" alt="some image" />    
+        </div>
+        
+        <div class="col-8">
+            <h3>@Model.Name</h3>
+            <h5>@Model.Cost</h5>
+            <p>@Model.Description</p>
+            <div class="row">
+                <a class="col-3 me-3 btn btn-primary" href="/">Вернуться к списку</a>
+                <a class="col-3 btn btn-primary" href="#">Добавить в корзину</a>
+            </div>
+        </div>
+        
+    </div>
+}
