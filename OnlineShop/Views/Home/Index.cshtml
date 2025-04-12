@@ -16,7 +16,7 @@
                     </a>
                     <h5 class="card-subtitle">@service.Cost</h5>
                     <p class="card-text">@service.Description</p>
-                    <a href="#" class="btn btn-primary">Купить услугу</a>
+                    <a class="btn btn-primary" asp-controller="Basket" asp-route-serviceId="@service.Id" asp-action="AddItem">Купить услугу</a>
                 </div>
             </div>
         </div>
