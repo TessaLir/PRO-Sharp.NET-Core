@@ -6,26 +6,23 @@ namespace OnlineShop.Controllers;
 public class BasketController : Controller
 {
     private readonly ILogger<ServiceController> _logger;
-    private readonly BasketRepository _basketRepository;
-    private readonly Guid _userID = new Guid("3abbd50d-6634-44da-bffa-9cc072657214"); // TODO потом нужно будет получать из DI
+    private readonly IRepository _repository;
 
-    public BasketController(ILogger<ServiceController> logger)
+    public BasketController(ILogger<ServiceController> logger, IRepository rep)
     {
         _logger = logger;
-        _basketRepository = new BasketRepository();
+        _repository = rep;
     }
     
     public IActionResult Index()
     {
-        var basket = _basketRepository.TryItemById(_userID);
+        var basket = _repository.TryBasketById(_repository.GetUserId());
         return View(basket);
     }
 
     public IActionResult AddItem(Guid serviceId, ActionType actionType)
     {
-        _basketRepository.SetItem(_userID, serviceId, actionType);
-
-        var basket = _basketRepository.TryItemById(_userID);
-        return View("Index", basket);
+        _repository.SetBasket(_repository.GetUserId(), serviceId, actionType);
+        return RedirectToAction("Index");
     }
 }

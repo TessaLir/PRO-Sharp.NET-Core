@@ -1,22 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Models;
 
 namespace OnlineShop.Controllers;
 
 public class ServiceController : Controller
 {
     private readonly ILogger<ServiceController> _logger;
-    private readonly ServiceRepository _serviceRepository;
+    private readonly IRepository _repository;
 
-    public ServiceController(ILogger<ServiceController> logger)
+    public ServiceController(ILogger<ServiceController> logger, IRepository rep)
     {
         _logger = logger;
-        _serviceRepository = new ServiceRepository();
+        _repository = rep;
     }
     
     public IActionResult Index(Guid id)
     {
-        var service = _serviceRepository.TryItemById(id);
+        var service = _repository.TryServiceById(id);
         return View(service);
-        // return service == null ? "Элемент не найден" : service + $"\r\n{service.Description}";
     }
 }

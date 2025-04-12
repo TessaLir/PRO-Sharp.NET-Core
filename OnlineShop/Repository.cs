@@ -1,17 +1,53 @@
+using Newtonsoft.Json;
 using OnlineShop.Models;
 
 namespace OnlineShop;
 
-public class BasketRepository
+public class Repository : IRepository
 {
-    private static List<Basket> _basket = new List<Basket>();
+    private readonly Guid _userId;
+    private readonly List<Service> _services;
+    private readonly List<Basket> _baskets;
 
-    public void SetItem(Guid userId, Guid serviceId, ActionType action)
+
+    public Repository()
     {
-        var userBasket = _basket.FirstOrDefault(basket => basket.UserId == userId);
-        var serviceRepository = new ServiceRepository();
+        _userId = new Guid("3abbd50d-6634-44da-bffa-9cc072657214");
+        _baskets = [];
+        
+        const string servicesJsonPath = "Data/Services.json";
+        var json = File.ReadAllText(servicesJsonPath);
+        _services = JsonConvert.DeserializeObject<List<Service>>(json) ?? [];
+    }
 
-        var service = serviceRepository.TryItemById(serviceId);
+
+    public Guid GetUserId()
+    {
+        return _userId;
+    }
+    
+    
+    public List<Service> GetServicesList()
+    {
+        return _services;
+    }
+
+    public Service? TryServiceById(Guid? id)
+    {
+        return _services.FirstOrDefault(service => service.Id == id);
+    }
+    
+    
+    
+    public Basket TryBasketById (Guid userId)
+    {
+        return _baskets.FirstOrDefault(item => item.UserId == userId);
+    }
+    
+    public void SetBasket(Guid userId, Guid serviceId, ActionType action)
+    {
+        var userBasket = _baskets.FirstOrDefault(basket => basket.UserId == userId);
+        var service = TryServiceById(serviceId);
 
         if (userBasket == null)
         {
@@ -20,7 +56,7 @@ public class BasketRepository
                 UserId = userId,
                 BasketPositions = new List<BasketPosition>()
             };
-            _basket.Add(userBasket);
+            _baskets.Add(userBasket);
         }
 
         var basketPosition = userBasket.BasketPositions.FirstOrDefault(bp => bp.Service.Id == service.Id);
@@ -56,14 +92,9 @@ public class BasketRepository
                 }
                 
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(action), action, null);
         }
     }
-
-
-    public Basket TryItemById (Guid userId)
-    {
-        return _basket.FirstOrDefault(item => item.UserId == userId);
-    }
-    
 
 }
