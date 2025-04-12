@@ -21,7 +21,7 @@ else
             <p>@Model.Description</p>
             <div class="row">
                 <a class="col-3 me-3 btn btn-primary" href="/">Вернуться к списку</a>
-                <a class="col-3 btn btn-primary" href="#">Добавить в корзину</a>
+                <a class="col-3 btn btn-primary" asp-controller="Basket" asp-route-serviceId="@Model.Id" asp-action="AddItem">Добавить в корзину</a>
             </div>
         </div>
         

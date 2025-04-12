@@ -1,0 +1,61 @@
+﻿@model Basket?
+@{
+    ViewData["Title"] = "Basket Detail Page";
+}
+
+@if (Model == null || Model!= null && Model.BasketPositions.Count == 0)
+{
+    <h3>Корзина пуста</h3>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="col">#</th>
+            <th class="col-6">Название сервиса</th>
+            <th class="col-2">Количество подписок</th>
+            <th class="col-3">Стоимость</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var service in Model.BasketPositions)
+        {
+            <tr>
+                <th class="col"></th>
+                <th class="col">@service.Service.Name</th>
+                <th class="col">@service.Count</th>
+                <th class="col">@($"{service.Cost:0.##}")</th>
+                <th>
+                    <a class="btn btn-light"
+                       asp-action="AddItem"
+                       asp-route-serviceId="@service.Service.Id"
+                       asp-route-actionType="@ActionType.ADD">
+                        +
+                    </a>
+                </th>
+                    
+                <th>
+                    <a class="btn btn-light"
+                       asp-action="AddItem"
+                       asp-route-serviceId="@service.Service.Id"
+                       asp-route-actionType="@ActionType.MINUS">
+                        -
+                    </a>
+                </th>
+            </tr>
+        }
+        <tr>
+            <th class="col">Итого:</th>
+            <th class="col"></th>
+            <th class="col"></th>
+            <th class="col">@($"{Model.BasketPositions.Sum(service => service.Cost):0.##}")</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary p-3" href="#">Оформить заказ</a>
+}
