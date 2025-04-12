@@ -7,17 +7,17 @@ namespace OnlineShop.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly ServiceRepository _serviceRepository;
+    private readonly IRepository _repository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IRepository rep)
     {
         _logger = logger;
-        _serviceRepository = new ServiceRepository();
+        _repository = rep;
     }
 
     public IActionResult Index()
     {
-        var list = _serviceRepository.GetList();
+        var list = _repository.GetServicesList();
         return View(list);
     }
 
