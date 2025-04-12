@@ -15,17 +15,10 @@ public class HomeController : Controller
         _serviceRepository = new ServiceRepository();
     }
 
-    public string Index(Guid? id)
+    public IActionResult Index()
     {
-        var result = "";
-
-        foreach (var service in _serviceRepository.GetList())
-        {
-            result += service;
-            result += "\n\n";
-        }
-        
-        return result;
+        var list = _serviceRepository.GetList();
+        return View(list);
     }
 
     public IActionResult Privacy()

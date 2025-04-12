@@ -13,9 +13,10 @@ public class ServiceController : Controller
         _serviceRepository = new ServiceRepository();
     }
     
-    public string Index(Guid id)
+    public IActionResult Index(Guid id)
     {
         var service = _serviceRepository.TryItemById(id);
-        return service == null ? "Элемент не найден" : service + $"\r\n{service.Description}";
+        return View(service);
+        // return service == null ? "Элемент не найден" : service + $"\r\n{service.Description}";
     }
 }
