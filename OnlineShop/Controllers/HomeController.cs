@@ -7,15 +7,25 @@ namespace OnlineShop.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly ServiceRepository _serviceRepository;
 
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
+        _serviceRepository = new ServiceRepository();
     }
 
-    public IActionResult Index()
+    public string Index(Guid? id)
     {
-        return View();
+        var result = "";
+
+        foreach (var service in _serviceRepository.GetList())
+        {
+            result += service;
+            result += "\n\n";
+        }
+        
+        return result;
     }
 
     public IActionResult Privacy()
