@@ -57,18 +57,13 @@ public class OrderRepository(IRepositoryServices serviceRepository) : IRepositor
                 }
 
                 basketPosition.Count++;
-                basketPosition.Cost = service.Cost * basketPosition.Count;
                 
                 break;
             case ActionType.MINUS:
                 if (basketPosition != null)
                 {
                     basketPosition.Count--;
-                    if (basketPosition.Count != 0)
-                    {
-                        basketPosition.Cost = service.Cost * basketPosition.Count;
-                    }
-                    else
+                    if (basketPosition.Count == 0)
                     {
                         userBasket.BasketPositions.Remove(basketPosition);
                     }
