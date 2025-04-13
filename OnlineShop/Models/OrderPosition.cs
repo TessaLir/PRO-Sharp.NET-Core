@@ -1,6 +1,6 @@
 namespace OnlineShop.Models;
 
-public class BasketPosition
+public class OrderPosition
 {
     public Service Service { get; set; }
     public int Count { get; set; }

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<IRepositoryUser, UserRepository>();
 builder.Services.AddSingleton<IRepositoryServices, ServiceRepository>();
-builder.Services.AddSingleton<IRepositoryBasket, BasketRepository>();
+builder.Services.AddSingleton<IRepositoryOrder, OrderRepository>();
 
 builder.Services.AddSingleton<IRepository, BaseRepository>();
 

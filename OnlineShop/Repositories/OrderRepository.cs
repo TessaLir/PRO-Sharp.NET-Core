@@ -4,27 +4,27 @@ using OnlineShop.Models.Interfaces;
 
 namespace OnlineShop;
 
-public class BasketRepository(IRepositoryServices serviceRepository) : IRepositoryBasket
+public class OrderRepository(IRepositoryServices serviceRepository) : IRepositoryOrder
 {
-    private readonly List<Basket> _baskets = [];
+    private readonly List<Order> _baskets = [];
     
     
-    public Basket TryBasketById (Guid userId)
+    public Order TryOrderById (Guid userId)
     {
         return _baskets.FirstOrDefault(item => item.UserId == userId);
     }
     
-    public void SetBasket(Guid userId, Guid serviceId, ActionType action)
+    public void SetOrder(Guid userId, Guid serviceId, ActionType action)
     {
         var userBasket = _baskets.FirstOrDefault(basket => basket.UserId == userId);
         var service = serviceRepository.TryServiceById(serviceId);
 
         if (userBasket == null)
         {
-            userBasket = new Basket()
+            userBasket = new Order()
             {
                 UserId = userId,
-                BasketPositions = new List<BasketPosition>()
+                BasketPositions = new List<OrderPosition>()
             };
             _baskets.Add(userBasket);
         }
@@ -49,7 +49,7 @@ public class BasketRepository(IRepositoryServices serviceRepository) : IReposito
             case ActionType.ADD:
                 if (basketPosition == null)
                 {
-                    basketPosition = new BasketPosition();
+                    basketPosition = new OrderPosition();
                     basketPosition.Service = service;
                     basketPosition.Count = 0;
                     

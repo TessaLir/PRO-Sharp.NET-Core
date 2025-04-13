@@ -6,7 +6,7 @@ namespace OnlineShop.Repositories;
 
 public class BaseRepository(
     IRepositoryServices serviceRepository,
-    IRepositoryBasket basketRepository,
+    IRepositoryOrder orderRepository,
     IRepositoryUser userRepository)
     : IRepository
 {
@@ -26,14 +26,14 @@ public class BaseRepository(
     }
 
 
-    public Basket TryBasketById (Guid userId)
+    public Order TryOrderById (Guid userId)
     {
-        return basketRepository.TryBasketById(userId);
+        return orderRepository.TryOrderById(userId);
     }
     
-    public void SetBasket(Guid userId, Guid serviceId, ActionType action)
+    public void SetOrder(Guid userId, Guid serviceId, ActionType action)
     {
-        basketRepository.SetBasket(userId, serviceId, action);
+        orderRepository.SetOrder(userId, serviceId, action);
     }
 
 }

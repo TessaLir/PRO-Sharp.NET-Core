@@ -5,12 +5,12 @@ using OnlineShop.Models.Interfaces;
 
 namespace OnlineShop.Controllers;
 
-public class BasketController : Controller
+public class OrderController : Controller
 {
     private readonly ILogger<ServiceController> _logger;
     private readonly IRepository _repository;
 
-    public BasketController(ILogger<ServiceController> logger, IRepository rep)
+    public OrderController(ILogger<ServiceController> logger, IRepository rep)
     {
         _logger = logger;
         _repository = rep;
@@ -18,17 +18,17 @@ public class BasketController : Controller
     
     public IActionResult Index()
     {
-        var basket = _repository.TryBasketById(_repository.GetUserId());
-        return View(basket);
+        var order = _repository.TryOrderById(_repository.GetUserId());
+        return View(order);
     }
 
     public IActionResult AddItem(Guid serviceId, ActionType actionType)
     {
-        _repository.SetBasket(_repository.GetUserId(), serviceId, actionType);
+        _repository.SetOrder(_repository.GetUserId(), serviceId, actionType);
         return RedirectToAction("Index");
     }
 
-    public IActionResult ApruveOrder()
+    public IActionResult ApproveOrder()
     {
         
         return RedirectToAction("Index");
