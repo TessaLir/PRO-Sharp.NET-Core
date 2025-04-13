@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Models;
+using OnlineShop.Models.Interfaces;
 
 namespace OnlineShop.Controllers;
 
