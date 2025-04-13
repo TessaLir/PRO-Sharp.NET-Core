@@ -9,6 +9,6 @@ public interface IRepository
     public List<Service> GetServicesList();
     public Service? TryServiceById(Guid? id);
 
-    public Order TryOrderById(Guid userId);
-    public void SetOrder(Guid userId, Guid serviceId, ActionType action);
+    public Order TryOrderById(Guid userId, OrderType? type);
+    public void SetOrder(Guid userId, ActionType action, Guid? serviceId);
 }

@@ -26,14 +26,14 @@ public class BaseRepository(
     }
 
 
-    public Order TryOrderById (Guid userId)
+    public Order TryOrderById (Guid userId, OrderType? type)
     {
-        return orderRepository.TryOrderById(userId);
+        return orderRepository.TryOrderById(userId, type);
     }
     
-    public void SetOrder(Guid userId, Guid serviceId, ActionType action)
+    public void SetOrder(Guid userId, ActionType action, Guid? serviceId)
     {
-        orderRepository.SetOrder(userId, serviceId, action);
+        orderRepository.SetOrder(userId, action, serviceId);
     }
 
 }

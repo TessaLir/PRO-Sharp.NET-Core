@@ -18,19 +18,19 @@ public class OrderController : Controller
     
     public IActionResult Index()
     {
-        var order = _repository.TryOrderById(_repository.GetUserId());
+        var order = _repository.TryOrderById(_repository.GetUserId(), OrderType.IN_CART);
         return View(order);
     }
 
     public IActionResult AddItem(Guid serviceId, ActionType actionType)
     {
-        _repository.SetOrder(_repository.GetUserId(), serviceId, actionType);
+        _repository.SetOrder(_repository.GetUserId(), actionType, serviceId);
         return RedirectToAction("Index");
     }
 
     public IActionResult ApproveOrder()
     {
-        
+        _repository.SetOrder(_repository.GetUserId(), ActionType.APPROVE, null);
         return RedirectToAction("Index");
     }
 }
