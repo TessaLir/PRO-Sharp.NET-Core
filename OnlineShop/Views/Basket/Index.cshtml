@@ -1,4 +1,5 @@
-﻿@model Basket?
+﻿@using OnlineShop.Models.Enums
+@model Basket?
 @{
     ViewData["Title"] = "Basket Detail Page";
 }
@@ -57,5 +58,55 @@ else
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-primary p-3" href="#">Оформить заказ</a>
+    
+    <button type="button" class="btn btn-primary p-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Оформить заказ
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Подтверждение заказа:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="col-6">Название сервиса</th>
+                            <th class="col-4">Количество подписок</th>
+                            <th class="col-2">Стоимость</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var service in Model.BasketPositions)
+                        {
+                        <tr>
+                            <th class="col">@service.Service.Name</th>
+                            <th class="col">@service.Count</th>
+                            <th class="col">@($"{service.Cost:0.##}")</th>
+                        </tr>
+                        }
+                        <tr>
+                            <th class="col">Итого:</th>
+                            <th class="col"></th>
+                            <th class="col">@($"{Model.BasketPositions.Sum(service => service.Cost):0.##}")</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary">Подтвердить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
 }

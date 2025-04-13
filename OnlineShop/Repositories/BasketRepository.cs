@@ -1,4 +1,6 @@
 using OnlineShop.Models;
+using OnlineShop.Models.Enums;
+using OnlineShop.Models.Interfaces;
 
 namespace OnlineShop;
 
@@ -31,6 +33,19 @@ public class BasketRepository(IRepositoryServices serviceRepository) : IReposito
         
         switch (action)
         {
+            case ActionType.CLEAR:
+                if (basketPosition != null)
+                {
+                    userBasket.BasketPositions.Remove(basketPosition);
+                }
+                break;
+            case ActionType.APPROVE:
+                if (basketPosition != null)
+                {
+                    // TODO тут надо записать все в Заказы
+                    userBasket.BasketPositions.Remove(basketPosition);
+                }
+                break;
             case ActionType.ADD:
                 if (basketPosition == null)
                 {

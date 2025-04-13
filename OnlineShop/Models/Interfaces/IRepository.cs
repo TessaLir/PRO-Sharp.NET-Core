@@ -1,4 +1,6 @@
-namespace OnlineShop.Models;
+using OnlineShop.Models.Enums;
+
+namespace OnlineShop.Models.Interfaces;
 
 public interface IRepository
 {

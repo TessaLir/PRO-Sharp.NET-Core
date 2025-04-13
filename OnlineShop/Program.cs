@@ -1,5 +1,6 @@
 using OnlineShop;
 using OnlineShop.Models;
+using OnlineShop.Models.Interfaces;
 using OnlineShop.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);

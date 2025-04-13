@@ -1,4 +1,6 @@
 using OnlineShop.Models;
+using OnlineShop.Models.Enums;
+using OnlineShop.Models.Interfaces;
 
 namespace OnlineShop.Repositories;
 

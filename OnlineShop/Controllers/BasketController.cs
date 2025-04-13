@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Models;
+using OnlineShop.Models.Enums;
+using OnlineShop.Models.Interfaces;
 
 namespace OnlineShop.Controllers;
 
@@ -23,6 +25,12 @@ public class BasketController : Controller
     public IActionResult AddItem(Guid serviceId, ActionType actionType)
     {
         _repository.SetBasket(_repository.GetUserId(), serviceId, actionType);
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult ApruveOrder()
+    {
+        
         return RedirectToAction("Index");
     }
 }

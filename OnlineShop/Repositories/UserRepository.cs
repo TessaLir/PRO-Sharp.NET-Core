@@ -1,4 +1,5 @@
 using OnlineShop.Models;
+using OnlineShop.Models.Interfaces;
 
 namespace OnlineShop.Repositories;
 
