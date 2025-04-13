@@ -1,10 +1,16 @@
 using OnlineShop;
 using OnlineShop.Models;
+using OnlineShop.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<IRepository, Repository>();
+builder.Services.AddSingleton<IRepositoryUser, UserRepository>();
+builder.Services.AddSingleton<IRepositoryServices, ServiceRepository>();
+builder.Services.AddSingleton<IRepositoryBasket, BasketRepository>();
+
+builder.Services.AddSingleton<IRepository, BaseRepository>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -26,7 +32,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
       name: "default",
-      pattern: "{controller=Home}/{action=Index}")
+      pattern: "{controller=Home}/{action=Index}/{id?}")
 
     .WithStaticAssets();
 

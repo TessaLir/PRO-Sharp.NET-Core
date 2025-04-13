@@ -1,42 +1,10 @@
-using Newtonsoft.Json;
 using OnlineShop.Models;
 
 namespace OnlineShop;
 
-public class Repository : IRepository
+public class BasketRepository(IRepositoryServices serviceRepository) : IRepositoryBasket
 {
-    private readonly Guid _userId;
-    private readonly List<Service> _services;
-    private readonly List<Basket> _baskets;
-
-
-    public Repository()
-    {
-        _userId = new Guid("3abbd50d-6634-44da-bffa-9cc072657214");
-        _baskets = [];
-        
-        const string servicesJsonPath = "Data/Services.json";
-        var json = File.ReadAllText(servicesJsonPath);
-        _services = JsonConvert.DeserializeObject<List<Service>>(json) ?? [];
-    }
-
-
-    public Guid GetUserId()
-    {
-        return _userId;
-    }
-    
-    
-    public List<Service> GetServicesList()
-    {
-        return _services;
-    }
-
-    public Service? TryServiceById(Guid? id)
-    {
-        return _services.FirstOrDefault(service => service.Id == id);
-    }
-    
+    private readonly List<Basket> _baskets = [];
     
     
     public Basket TryBasketById (Guid userId)
@@ -47,7 +15,7 @@ public class Repository : IRepository
     public void SetBasket(Guid userId, Guid serviceId, ActionType action)
     {
         var userBasket = _baskets.FirstOrDefault(basket => basket.UserId == userId);
-        var service = TryServiceById(serviceId);
+        var service = serviceRepository.TryServiceById(serviceId);
 
         if (userBasket == null)
         {
@@ -96,5 +64,6 @@ public class Repository : IRepository
                 throw new ArgumentOutOfRangeException(nameof(action), action, null);
         }
     }
-
+    
+    
 }
